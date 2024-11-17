@@ -1,51 +1,66 @@
 # KTU-Concurrent_Programming-LAB_01_A
-L1. Shared Memory - Consumer-Producer Pattern Implementation
 
+L1. Shared memory
+
+## Program a: application of consumer — producer pattern
 TL;DR
-This program implements the consumer-producer pattern using shared memory. It involves two monitors: one for storing unprocessed data and another for storing computed results. The main thread reads data from a file and writes it to the data monitor. Worker threads concurrently remove data from the monitor, compute results, and add them to the results monitor. The program handles cases when the data monitor is full or empty, ensuring synchronization between threads. Finally, the main thread writes the computed results to a result file.
 
-Full Description
-Problem Overview
-The program uses shared memory to implement a consumer-producer pattern. The main thread is responsible for reading data from a file and writing it to a data monitor. Worker threads take items from the data monitor, compute results, and write them to a results monitor, ensuring the results monitor remains sorted. The program ensures synchronization between threads when the data monitor is full or empty.
+Picture below shows a generalized view of how the program should work: two monitors
+are created — one for data and one for results. Each monitor contains an array, for
+unprocessed data and computed results respectively. Main thread reads data from a data
+file and writes them to the data monitor, while a selected amount of worker threads
+concurrently take (remove) items one by one from the data monitor, compute their
+result and write it to the result monitor. Program must handle cases when data monitor
+is empty and a worker tries to remove an item as well as when data monitor is full and
+main thread wants to add one more item – respective thread must wait until the size of
+the array changes. Goal of the main thread — copy all data read from the data file to
+the data monitor, wait for workers to finish and write all results from the result monitor
+to the result file. Goal of the workers — take (remove) item from data monitor, calculate
+result, decide if the result should go to the results and write it to result monitor if yes.
+Writing to result monitor should be implemented in such a way that it always remains
+sorted. Actions are repeated until all data are processed. It is not required to use
+the structure shown in the diagram.
 
-Data Structure
-You need to define a custom data structure with the following fields:
-- A `string` (e.g., a description or name)
-- An `int` (e.g., a quantity or identifier)
-- A `double` (e.g., a value or measurement)
+## Full description
+Choose your own data structure that consists of 3 fields — one string, one int and
+one double, an operation that calculates a result from the data structure and a criterion
+to filter results by. Selected function should not be trivial so that it takes a bit of time
+to compute.
+Prepare three data files containing at least 25 elements of your selected structure
+each. Data file format is free to choose. It is recommended to use a standard data
+format (JSON, XML or other) and use existing libraries to read it. Name of the data file
+— Group_LastnameF_L1_dat_x.json (Group — your academic group, LastnameF
+— your last name and first letter of your first name, x — file number (3 files are required),
+file extension depends on your selected format). You have to prepare three data files:
 
-Additionally, the structure should include a function that computes a result from the data and a filter criterion for filtering the computed results.
+• Group_LastnameF_L1_dat_1.json — all data matches your selected filter
+criteria.
+• Group_LastnameF_L1_dat_2.json — part of data matches your selected
+filter criteria.
+• Group_LastnameF_L1_dat_3.json — no data matches your selected filter
+criteria.
+## Main thread works as follows:
+1. Reads the data file to a local array, list or other data structure;
+2. Spawns a selected amount of worker threads 2 ≤ x ≤n 4(n — amount of data in the file).
+3. Writes each read element to the data monitor. If the monitor is full, the thread is blocked until there is some free space.
+4. Waits for all spawned worker thread to complete.
+5. Writes all data from result monitor to the text result file as a table.
+   
+## Worker threads work as follows:
+• Take item from data monitor. If data monitor is empty, worker waits until there is data in the monitor.
+• Computes the function selected by the student for the taken item.
+• Checks if the result fits the selected criterion. If yes, the result is added to result monitor. The result monitor must stay sorted after insert.
+• Work is repeated until all data from the file is processed. 
 
-The computation function should not be trivial to ensure that it takes enough time to process. You also need to prepare three data files, each containing at least 25 elements of your selected structure.
-
-Data File Format
-You should choose a format for the data files, such as JSON or XML, and use existing libraries to read it. The filenames should follow this format:
-- `Group_LastnameF_L1_dat_1.json` – All data matches your selected filter criteria.
-- `Group_LastnameF_L1_dat_2.json` – Part of the data matches your selected filter criteria.
-- `Group_LastnameF_L1_dat_3.json` – No data matches your selected filter criteria.
-
-Main Thread Workflow
-1. Reads the data file into a local array, list, or other data structure.
-2. Spawns a specified number of worker threads (2 ≤ x ≤ n/4, where n is the number of data items in the file).
-3. Writes each data item to the data monitor. If the monitor is full, the main thread waits until there is space.
-4. Waits for all worker threads to finish processing.
-5. Writes the results from the result monitor to a result file in a tabular format.
-
-Worker Threads Workflow
-1. Each worker thread removes an item from the data monitor. If the data monitor is empty, the worker waits for data.
-2. Computes the result based on the selected function.
-3. Checks if the result meets the selected filter criterion. If it does, the result is added to the result monitor. The results monitor must remain sorted after each insertion.
-4. Repeats the process until all data from the file are processed.
-
-Monitor Requirements
-- Implement the data and result monitors as classes or structures with at least two operations: insert an item and remove an item.
-- The data monitor array should have a fixed size, not exceeding half of the elements in the data file.
-- The result monitor should be large enough to store all results.
-- Use synchronization mechanisms like critical sections and conditional synchronization to protect operations and manage thread blocking.
-- Ensure that it is possible to fill and empty the data monitor.
-
-Result File Format
-The result file should be named `Group_LastnameF_L1_rez.txt`. It should be formatted as a table with a header, showing the filtered data along with the computed values.
+## Requirements for monitors
+• It is recommended to implement the monitors as a class or a structure with at least two operations: to insert an item and to remove an item. If Rust is used, use Rust monitors.
+• Data are stored in a fixed-size array (list or other data structure is not allowed).
+• Data monitor array size cannot be larger than half of the elements in data file.
+• Result monitor has enough size to contain all results.
+• Operations with the monitor are protected using critical section where needed and thread blocking is implemented using conditional synchronization, using the tools of your selected language.
+• It should be possible to fill and empty the data monitor (otherwise there is no point to have it :) ).
+Result file should be named Group_LastnameF_L1_rez.txt. File is formatted
+as a table with a header, filtered data with computed values are shown in the file
 
 ---
 
