@@ -62,5 +62,75 @@ criteria.
 Result file should be named Group_LastnameF_L1_rez.txt. File is formatted
 as a table with a header, filtered data with computed values are shown in the file
 
+# Program B: Manual Data Distribution Between Threads and OpenMP Sum
+
+## TL;DR
+Program does the same as Program A, but OpenMP tools for critical section are used.
+Data monitor is not required, instead, an algorithm to distribute data for the threads
+should be implemented, and each thread processes its part of the data. The parts should
+be as equal-sized as possible. Additionally, compute sums of int and float fields using
+OpenMP tools and output at the end of the file.
+
+## Full Description
+The data file is the same as for Program A, and the result file is the same but with an addition — sums of int and float fields have to be appended to the file.
+
+Monitor has to be implemented using OpenMP synchronization tools (standard C++ tools cannot be used, they are used in Program L1a).
+
+The program has to spawn the same amount of threads as in Program A, but the threads work directly with the data array or vector. Each thread processes one part of the data. Data distribution has to be implemented by the student (not using OpenMP parallel loops). Elements have to be distributed as evenly as possible (if 27 elements are present in the data file and 6 threads are spawned, 3 threads process 4 elements each and 3 threads process 5 elements each).
+
+The parallel region of the program computes the same function and applies the same filter as in Program A with its part of the data. Sums of int and float fields have to be computed using OpenMP tools. Sums are computed only for the elements that match the filter criteria. All computations are done in a single parallel region.
+
+### Lab Programs:
+- a) C++, C#, Go, Rust — monitor is implemented using tools of the chosen language;
+- b) C++ & OpenMP — monitor is implemented using tools of OpenMP;
+
+## L1 Program Grading
+- L1a — 4 points;
+- L1b — 2 points;
+- Test — 4 points.
+
+## Deadline Weeks for Lab Programs:
+- a) Week 5
+- b) Week 6
+- Test: Week 8
+
+Programs have to be presented during lab lectures not later than the deadline. Program files (.cpp, .cs, .go, .rs), data, and result files (.txt) have to be uploaded to Moodle before presentation.
+
+### Recommended Tools to Parse JSON:
+- C++ — nlohmann
+- C# — DataContractJsonSerializer
+- Go — Unmarshal
+- Rust — serde_json
+
+## Examples of Data and Result Files
+
+Student data is in the data file. NB: the file should contain more elements than in the example; students should use their own data structure.
+
+```json
+{
+  "students": [
+    {"name": "Antanas", "year": 1, "grade": 6.95},
+    {"name": "Kazys", "year": 2, "grade": 8.65},
+    {"name": "Petras", "year": 2, "grade": 7.01},
+    {"name": "Sonata", "year": 3, "grade": 9.13},
+    {"name": "Jonas", "year": 1, "grade": 6.95},
+    {"name": "Martynas", "year": 3, "grade": 9.13},
+    {"name": "Artūras", "year": 2, "grade": 7.01},
+    {"name": "Vacys", "year": 2, "grade": 8.65},
+    {"name": "Robertas", "year": 3, "grade": 6.43},
+    {"name": "Mykolas", "year": 1, "grade": 6.95},
+    {"name": "Aldona", "year": 3, "grade": 9.13},
+    {"name": "Asta", "year": 2, "grade": 7.01},
+    {"name": "Viktoras", "year": 2, "grade": 8.65},
+    {"name": "Artūras", "year": 5, "grade": 8.32},
+    {"name": "Vytas", "year": 3, "grade": 7.85},
+    {"name": "Jonas", "year": 1, "grade": 6.95},
+    {"name": "Zigmas", "year": 3, "grade": 9.13},
+    {"name": "Artūras", "year": 2, "grade": 7.01},
+    {"name": "Simas", "year": 3, "grade": 6.43}
+  ]
+}
+
+
 ---
 
