@@ -1,0 +1,14 @@
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\bin\Debug\net8.0\LAB-01-CONCURRENT.exe
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\bin\Debug\net8.0\LAB-01-CONCURRENT.deps.json
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\bin\Debug\net8.0\LAB-01-CONCURRENT.runtimeconfig.json
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\bin\Debug\net8.0\LAB-01-CONCURRENT.dll
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\bin\Debug\net8.0\LAB-01-CONCURRENT.pdb
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\obj\Debug\net8.0\LAB-01-CONCURRENT.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\obj\Debug\net8.0\LAB-01-CONCURRENT.AssemblyInfoInputs.cache
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\obj\Debug\net8.0\LAB-01-CONCURRENT.AssemblyInfo.cs
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\obj\Debug\net8.0\LAB-01-CONCURRENT.csproj.CoreCompileInputs.cache
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\obj\Debug\net8.0\LAB-01-CONCURRENT.dll
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\obj\Debug\net8.0\refint\LAB-01-CONCURRENT.dll
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\obj\Debug\net8.0\LAB-01-CONCURRENT.pdb
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\obj\Debug\net8.0\LAB-01-CONCURRENT.genruntimeconfig.cache
+C:\Users\manon\Downloads\LAB-01-CONCURRENT\obj\Debug\net8.0\ref\LAB-01-CONCURRENT.dll
